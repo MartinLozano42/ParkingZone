@@ -1,0 +1,95 @@
+﻿Title,Type,Sprint,Priority,Points,Labels,DependsOn,Description,AcceptanceCriteria
+"Crear repositorios (frontend, backend) y políticas de ramas",Task,Sprint 1,Alta,2,"pm,devops",,"Inicializar repos de GitHub, definir ramas main/dev/feature, proteger main con PRs y reviews.","- Repos creados
+- Branch protection rules activas
+- README inicial con instrucciones."
+Configurar GitHub Project con vistas Kanban,Task,Sprint 1,Alta,1,pm,,"Columnas: Backlog, To Do, In Progress, Testing, Done, Bugs.","- Tablero creado y compartido con el docente.
+- Custom fields: Priority, Sprint, Points."
+Definir CI/CD básico (GitHub Actions),Task,Sprint 1,Alta,3,devops,"Crear repositorios (frontend, backend) y políticas de ramas",Workflow para build y tests en cada PR (frontend y backend).,"- Pipelines ejecutan build y tests.
+- Status check requerido para merge."
+Modelado final BD y script DDL,Task,Sprint 1,Alta,5,db,,"Revisar esquema y generar DDL con claves, índices y FKs.","- DDL ejecutable sin errores
+- Diagrama actualizado y versionado."
+"Tablas: usuarios, roles, permisos",Task,Sprint 1,Alta,3,db,Modelado final BD y script DDL,Crear tablas de autenticación/autorización.,"- CRUD básico probado
+- Índices en email/username."
+"Tablas: parqueos, espacios, tipos_espacio",Task,Sprint 1,Alta,3,db,Modelado final BD y script DDL,Inventario de espacios por parqueo.,"- Relaciones parqueo->espacio OK
+- Unique (parqueo_id, nro_espacio)."
+"Tablas: reservas, estados_reserva",Task,Sprint 1,Alta,3,db,Modelado final BD y script DDL,"Gestionar reservas y su estado (pendiente, pagada, vencida, cancelada).","- FKs a usuarios, espacios
+- Índices por fecha/estado."
+"Tablas: pagos (online/físico), pasarelas",Task,Sprint 2,Alta,3,db,Modelado final BD y script DDL,"Registrar pagos y método (online, efectivo).","- FKs a reservas
+- Campos monto, moneda, metodo, referencia."
+"Tablas: control_tiempos, multas, reglas",Task,Sprint 2,Alta,3,db,Modelado final BD y script DDL,"Control de tiempos, reglas y multas por incumplimiento.","- Trigger/servicio para cálculo de multas
+- Índices por usuario/fecha."
+"Tablas: notificaciones, mensajes_chat",Task,Sprint 3,Media,2,db,Modelado final BD y script DDL,Tablas para notificaciones y chat con seguridad.,"- FKs a usuarios/reservas
+- Índices por recibido_no_leído."
+"Vistas y SPs para reportes (ocupación, ingresos, multas)",Task,Sprint 3,Media,3,db,Modelado final BD y script DDL,Crear vistas y procedimientos para KPIs.,- Vistas ejecutan rápido (<1s en dataset semilla).
+Bootstrap backend Node/Express con TypeScript,Task,Sprint 1,Alta,3,backend,,"Proyecto base con estructura modular, ESLint/Prettier, logger.","- Proyecto compila y corre
+- Scripts npm (`dev`, `build`, `test`)."
+Conexión a MySQL y ORM (Prisma/Sequelize),Task,Sprint 1,Alta,3,"backend,db",Bootstrap backend Node/Express con TypeScript,"Configurar pool, migraciones y modelos.","- Migraciones aplicadas en CI
+- Variables en .env segura."
+Auth: registro/login con JWT + hashing (bcrypt),Story,Sprint 1,Alta,5,"backend,security",,"Como conductor, quiero registrarme e iniciar sesión para usar la plataforma.","- Registro con validaciones
+- Login devuelve JWT
+- Contraseñas hasheadas
+- Tests unitarios."
+"Gestión de roles (admin, seguridad, conductor)",Story,Sprint 1,Alta,3,"backend,security",Auth: registro/login con JWT + hashing (bcrypt),"Como admin, quiero asignar roles para controlar permisos.","- Middleware de autorización
+- Endpoints protegidos."
+CRUD Parqueos y Espacios,Story,Sprint 1,Alta,5,backend,,"Como admin, quiero gestionar parqueos y espacios para mantener la disponibilidad.","- Endpoints REST con validación
+- Paginación/búsqueda.
+- Tests."
+Disponibilidad en tiempo real (consulta espacios),Story,Sprint 1,Alta,3,backend,CRUD Parqueos y Espacios,"Como conductor, quiero ver disponibilidad actual para reservar.",- Endpoint que devuelve ocupación por parqueo y tipo.
+Crear reserva,Story,Sprint 1,Muy Alta,5,backend,,"Como conductor, quiero reservar un espacio disponible.","- Endpoint POST /reservas
+- Reglas: un espacio por usuario, evita doble booking
+- Tests."
+Cancelar reserva,Story,Sprint 1,Media,2,backend,,"Como conductor, quiero cancelar mi reserva en ventana permitida.","- Estado pasa a cancelada
+- Reembolso si aplica."
+Registro de pago físico (guardia),Story,Sprint 1,Alta,3,backend,,"Como guardia, quiero registrar pago en efectivo a la llegada.","- Endpoint pago_fisico
+- Vincula con reserva.
+- Auditoría."
+Integrar pasarela de pago (sandbox),Story,Sprint 2,Alta,5,"backend,security",Crear reserva,"Como conductor, quiero pagar en línea mi reserva.","- Integración sandbox (ej. MercadoPago/Stripe/QR)
+- Webhook de confirmación
+- Manejo de estados."
+Control de tiempo de estacionamiento,Story,Sprint 2,Alta,5,backend,,"Como admin, quiero monitorear tiempos para cobro justo.","- Inicio/fin de estacionamiento
+- Cálculo de tarifa."
+Motor de reglas y multas automáticas,Story,Sprint 2,Alta,5,backend,Control de tiempo de estacionamiento,"Como admin, quiero multas automáticas por incumplimiento.","- Reglas configurables (exceso de tiempo, ocupación indebida)
+- Cálculo y registro de multa."
+"API de reportes (ocupación, ingresos, multas)",Story,Sprint 3,Media,3,backend,,"Como admin, quiero ver KPIs y reportes.","- Endpoints agregados
+- Export CSV/PDF básico."
+Chat con seguridad (WebSockets),Story,Sprint 3,Media,5,backend,Auth: registro/login con JWT + hashing (bcrypt),"Como conductor, quiero chatear con seguridad por incidencias.","- Canal por reserva
+- Persistencia en BD."
+Servicio de notificaciones (email),Story,Sprint 3,Media,3,backend,,"Como conductor, quiero recibir notificaciones de estado.","- SMTP/Provider
+- Plantillas para reserva/pago/multa."
+Bootstrap frontend React + Vite,Task,Sprint 1,Alta,2,frontend,,"Crear proyecto con routing, state manager (Zustand/Redux), axios, estilos.",- App base corre y navega.
+UI Login/Registro,Task,Sprint 1,Alta,3,"frontend,ux",,"Pantallas de login/registro, validaciones y consumo de API.","- JWT guardado seguro
+- Errores amigables."
+UI Home con disponibilidad por parqueo,Task,Sprint 1,Alta,3,"frontend,ux",,Listado/mapa de parqueos y ocupación por tipo.,"- Llama endpoint disponibilidad
+- Actualiza en tiempo real."
+UI Reserva de espacio,Task,Sprint 1,Muy Alta,4,"frontend,ux",,Flujo de reserva con selección de espacio/horario.,"- Estado de reserva visible
+- Confirmación visual."
+UI Registrar pago físico (guardia),Task,Sprint 1,Alta,2,"frontend,ux",,Formulario simple para guardia con ID de reserva.,- Guarda pago en BD.
+UI Pago en línea (checkout),Task,Sprint 2,Alta,4,"frontend,ux",UI Reserva de espacio,Checkout redirigido a pasarela y confirmación.,"- Manejo de estados de pago
+- Mensajes claros."
+UI Control de tiempos (admin),Task,Sprint 2,Alta,3,"frontend,ux",,Panel para ver tiempos y accionar cierres.,- Tabla filtrable/ordenable.
+UI Multas (admin),Task,Sprint 2,Alta,3,"frontend,ux",,"Listado de multas, búsqueda, pago de multa.",- Enlace a reserva/usuario.
+UI Reportes y descargas,Task,Sprint 3,Media,3,"frontend,ux",,"Gráficas e indicadores, exportación a CSV/PDF.",- KPIs visibles y consistentes.
+UI Chat con seguridad,Task,Sprint 3,Media,4,"frontend,ux",Chat con seguridad (WebSockets),Componente de chat por reserva (WebSocket).,- Persistencia y visualización de mensajes.
+UI Centro de notificaciones,Task,Sprint 3,Media,2,"frontend,ux",,Campanas/banners con estados de reservas/pagos/multas.,- Lectura/marcado como visto.
+"Configurar CORS, rate limiting, helmet",Task,Sprint 1,Alta,2,"security,backend",,Configurar seguridad básica en API.,- Endpoints protegidos contra ataques comunes.
+Gestión segura de secretos (.env) y rotación,Task,Sprint 1,Alta,1,"security,devops",,Usar GitHub secrets/ dotenv; no subir .env.,"- Secrets en Actions y servidor.
+- .gitignore actualizado."
+Cifrado de datos sensibles (AES/at-rest),Task,Sprint 2,Media,3,"security,backend,db",,"Cifrar datos que lo requieran (tokens, refs de pago).","- Columnas encriptadas
+- Claves rotables."
+Auditoría de acciones críticas,Task,Sprint 2,Media,2,"security,backend",,"Log estructurado de login, pagos, multas, cambios de rol.",- Bitácoras consultables.
+Definir DoD y criterios de aceptación por historia,Task,Sprint 1,Alta,1,"qa,pm",,Documentar Definition of Done y CA.,"- Plantilla en repo.
+- Aprobado por el equipo."
+Suite de pruebas unitarias backend,Task,Sprint 1,Alta,3,"qa,backend",,Configurar Jest/Mocha con cobertura mínima 70%.,- Reporte de coverage en CI.
+Pruebas de integración (API),Task,Sprint 2,Alta,3,"qa,backend",Suite de pruebas unitarias backend,"Endpoints críticos: auth, reservas, pagos.",- Casos felices y de error.
+E2E Frontend con Playwright/Cypress,Task,Sprint 3,Media,4,"qa,frontend",,"Flujos: login, reservar, pagar, ver multas.",- Pruebas corren en CI.
+Carga básica con k6/Artillery,Task,Sprint 3,Baja,2,"qa,backend",,Validar 50-100 rps en endpoints de lectura.,- Reporte incluido.
+Semillas (seed) de datos para desarrollo,Task,Sprint 1,Alta,2,"db,backend",Conexión a MySQL y ORM (Prisma/Sequelize),"Script para poblar parqueos, espacios, usuarios demo.",- Seed reproducible.
+Métricas de uso (eventos de reserva/pago),Task,Sprint 3,Baja,2,"backend,analytics",,Emitir eventos a consola/archivo para analizar uso.,- Métricas mínimas listadas.
+Dockerizar backend y frontend,Task,Sprint 2,Media,3,devops,,Dockerfile y docker-compose para stack local.,- `docker compose up` levanta todo.
+Entorno de staging en la nube,Task,Sprint 2,Alta,5,devops,Dockerizar backend y frontend,"Despliegue en un VPS/PaaS, dominio temporal.","- Backend accesible, BD segura, logs visibles."
+CD a staging (auto-deploy en main),Task,Sprint 2,Alta,3,devops,,Workflow que publica al merge a main.,- Despliegue automático exitoso.
+Backup y restauración de BD,Task,Sprint 3,Media,2,"devops,db",,Política de backups diarios y restauración validada.,- Restore probado.
+"README detallado (instalación, scripts, envs)",Task,Sprint 1,Alta,2,docs,,Guía para montar el proyecto.,- Probado por un compañero.
+Guía de API (OpenAPI/Swagger),Task,Sprint 2,Alta,3,"docs,backend",,Documentar endpoints con Swagger UI.,- Swagger accesible en /docs.
+Manual rápido para guardias y admin,Task,Sprint 3,Media,2,"docs,ux",,"PDF con flujos: verificar reserva, registrar pago físico, ver multas.",- Aprobado por el equipo.
+Registro de bugs críticos post-MVP,Task,Sprint 2,Alta,2,"qa,pm",,Crear etiqueta `bug` y SLA de resolución.,- Plantilla de issues en GitHub.
